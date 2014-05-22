@@ -17,7 +17,7 @@ ad_library {
 ad_proc -public im_package_intranet_pg_files_id {} {
     Returns the package id of the intranet-search-pg-files module
 } {
-    return [util_memoize "im_package_search_pg_files_id_helper"]
+    return [util_memoize im_package_search_pg_files_id_helper]
 }
 
 ad_proc -private im_package_search_pg_files_id_helper {} {
