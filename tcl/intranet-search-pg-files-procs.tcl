@@ -204,7 +204,7 @@ ad_proc -public intranet_search_pg_files_index_object {
     lappend error_list "im_ftio: existing files: $ofiles"
 
 
-    set home_path_len [expr [string length $home_path] + 1]
+    set home_path_len [expr {[string length $home_path] + 1}]
 
     set files [list]
     if {[catch {
@@ -231,7 +231,7 @@ ad_proc -public intranet_search_pg_files_index_object {
 	set file_last_modified [lindex $file_entries 1]
 	set file_path [string range $filename $home_path_len end]
 	set pieces [split $file_path "/"]
-	set body [lindex $pieces [expr [llength $pieces]-1]]
+	set body [lindex $pieces [llength $pieces]-1]
 	set folder_path [join [lrange $pieces 0 end-1] "/"]
 	if {"" != $folder_path} { set path_sql ":folder_path" } else { set path_sql "''" }
 	set db_last_modified ""
@@ -410,7 +410,7 @@ ad_proc -public intranet_search_pg_files_index_object {
 
 	    # Split the remaining path into folder path and file body
 	    set pieces [split $filename "/"]
-	    set body [lindex $pieces [expr [llength $pieces]-1]]
+	    set body [lindex $pieces [llength $pieces]-1]
 	    set folder_path [join [lrange $pieces 0 end-1] "/"]
 
 	    # Deal with empty string == "null" in the db-interface.
@@ -563,7 +563,7 @@ ad_proc intranet_search_pg_files_search_indexer {
 			where object_id = :search_object_id
 	    "
 	
-	    set ctr [expr $ctr + $nfiles]
+	    set ctr [expr {$ctr + $nfiles}]
 	    if {$ctr > $max_files} { break }
 	}
 	
