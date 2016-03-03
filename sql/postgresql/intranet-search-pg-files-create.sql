@@ -39,18 +39,17 @@ insert into im_biz_object_urls (object_type, url_type, url) values (
 
 
 
-
 create or replace function im_fs_files_tsearch ()
-returns trigger as '
+returns trigger as $$
 declare
 	v_string	varchar;
 	v_string2	varchar;
 	oid		integer;
 begin
 	select
-		coalesce(translate(ff.path, ''/.,-_()&'', ''        ''), '''') 
-			|| '' '' || coalesce(f.filename, '''') 
-			|| '' '' ||  coalesce(f.fti_content, ''''),
+		coalesce(translate(ff.path, '/.,-_()&', '        '), '') 
+			|| ' ' || coalesce(f.filename, '') 
+			|| ' ' ||  coalesce(f.fti_content, ''),
 		ff.object_id
 	into
 		v_string, oid
@@ -61,10 +60,10 @@ begin
 		f.folder_id = ff.folder_id
 		and file_id = new.file_id;
 
-	perform im_search_update(new.file_id, ''im_fs_file'', oid, v_string);
+	perform im_search_update(new.file_id, 'im_fs_file', oid, v_string);
 
 	return new;
-end;' language 'plpgsql';
+end;$$ language 'plpgsql';
 
 
 CREATE TRIGGER im_fs_files_tsearch_tr
@@ -76,14 +75,14 @@ EXECUTE PROCEDURE im_fs_files_tsearch();
 
 
 create or replace function im_fs_files_tsearch_del ()
-returns trigger as '
+returns trigger as $$
 begin
 	delete from im_search_objects
 	where	object_id = old.file_id
 		and object_type_id = 6;
 
 	return new;
-end;' language 'plpgsql';
+end;$$ language 'plpgsql';
 
 
 CREATE TRIGGER im_fs_files_tsearch_del_tr
