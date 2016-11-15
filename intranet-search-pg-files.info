@@ -12,6 +12,7 @@
     <version name="5.0.2.0.0" url="http://www.project-open.net/download/apm/intranet-search-pg-files-5.0.2.0.0.apm">
         <owner url="mailto:frank.bergmann@project-open.com">Frank Bergmann</owner>
         <summary>Full-Text search for files and filenames</summary>
+        <release-date>2016-11-15</release-date>
         <vendor url="http://www.project-open.com/">]project-open[</vendor>
         <description format="text/plain">Provides full-text indexing for files and filenames in the ]po[ filestorages. Uses a number of external filters to periodically scan the ]po[ storages for new files, builds up a  Full Text Index and allows the user to retreive the files using the normal search interface.</description>
 
