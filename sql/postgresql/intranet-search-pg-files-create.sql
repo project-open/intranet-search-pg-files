@@ -39,6 +39,12 @@ insert into im_biz_object_urls (object_type, url_type, url) values (
 
 
 
+-----------------------------------------------------------
+-- TSearch2 indexing
+insert into im_search_object_types values (6,'im_fs_file',0.1);
+
+
+
 create or replace function im_fs_files_tsearch ()
 returns trigger as $$
 declare
@@ -67,10 +73,8 @@ end;$$ language 'plpgsql';
 
 
 CREATE TRIGGER im_fs_files_tsearch_tr
-AFTER INSERT or UPDATE
-ON im_fs_files
-FOR EACH ROW
-EXECUTE PROCEDURE im_fs_files_tsearch();
+AFTER INSERT or UPDATE ON im_fs_files
+FOR EACH ROW EXECUTE PROCEDURE im_fs_files_tsearch();
 
 
 
@@ -87,7 +91,5 @@ end;$$ language 'plpgsql';
 
 CREATE TRIGGER im_fs_files_tsearch_del_tr
 AFTER DELETE ON im_fs_files
-FOR EACH ROW
-EXECUTE PROCEDURE im_fs_files_tsearch_del();
-
+FOR EACH ROW EXECUTE PROCEDURE im_fs_files_tsearch_del();
 
