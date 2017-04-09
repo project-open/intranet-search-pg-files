@@ -78,7 +78,7 @@ ad_proc -public intranet_search_pg_files_fti_content {
 	doc {
 	    # Convert using wvText doc->text converter
 	    if {[catch {
-		set content [exec $catdoc -s8859-1 -d8859-1 $filename]
+		set content [im_exec $catdoc -s8859-1 -d8859-1 $filename]
 	    } err]} {
 		ns_log Error "intranet_search_pg_files_fti_content: '$err'"
 		return "intranet_search_pg_files_fti_content: '$err'"
@@ -87,7 +87,7 @@ ad_proc -public intranet_search_pg_files_fti_content {
 	htm - html - xml - asp {
 	    # Convert html to text
 	    if {[catch {
-		set content [exec $htmltotext -nobs $filename]
+		set content [im_exec $htmltotext -nobs $filename]
 	    } err]} {
 		ns_log Error "intranet_search_pg_files_fti_content: '$err'"
 		return "intranet_search_pg_files_fti_content: '$err'"
@@ -208,7 +208,7 @@ ad_proc -public intranet_search_pg_files_index_object {
 
     set files [list]
     if {[catch {
-	set file_list [exec $find_cmd $home_path -type f -printf "%h/%f\t%T@\n"]
+	set file_list [im_exec $find_cmd $home_path -type f -printf "%h/%f\t%T@\n"]
 	set files [lsort [split $file_list "\n"]]
     } errmsg]} {
 	lappend error_list "im_ftio: Unable to get list of files for '$home_path':\n$errmsg"
