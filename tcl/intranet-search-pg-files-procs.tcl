@@ -163,7 +163,6 @@ ad_proc -public intranet_search_pg_files_index_object {
     }
 
     set admin_user_id [im_sysadmin_user_default]
-    set find_cmd [im_filestorage_find_cmd]
 
     # Home Filestorage depends on object type...
     switch $object_type {
@@ -208,7 +207,7 @@ ad_proc -public intranet_search_pg_files_index_object {
 
     set files [list]
     if {[catch {
-	set file_list [im_exec $find_cmd $home_path -type f -printf "%h/%f\t%T@\n"]
+	set file_list [im_exec find $home_path -type f -printf "%h/%f\t%T@\n"]
 	set files [lsort [split $file_list "\n"]]
     } errmsg]} {
 	lappend error_list "im_ftio: Unable to get list of files for '$home_path':\n$errmsg"
